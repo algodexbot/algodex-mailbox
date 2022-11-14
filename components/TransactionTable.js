@@ -1,19 +1,3 @@
-/* 
- * Algodex Mailbox 
- * Copyright (C) 2022 Algodex VASP (BVI) Corp.
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
-
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 /*
  * Copyright Algodex VASP (BVI) Corp., 2022
  * All Rights Reserved.
@@ -29,15 +13,20 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
-import { styled } from '@mui/material/styles'
+import { makeStyles } from '@mui/styles'
+import { useTheme } from '@mui/material'
 
 const TransactionTable = ({ rows }) => {
-  const StyledTableHead = styled(TableHead)(({ theme }) => ({
-    '& .MuiTableCell-head': {
-      backgroundColor: `${theme.palette.primary.main}`,
+  const theme = useTheme()
+  
+  const useStyles = makeStyles({
+    root: {
+      '& .MuiTableCell-head': {
+        backgroundColor: `${theme.palette.primary.main}`,
+      },
     },
-  }))
-
+  })
+  const classes = useStyles()
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
@@ -85,7 +74,7 @@ const TransactionTable = ({ rows }) => {
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer>
         <Table stickyHeader aria-label="sticky table">
-          <StyledTableHead>
+          <TableHead className={classes.root}>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
@@ -99,7 +88,7 @@ const TransactionTable = ({ rows }) => {
                 </TableCell>
               ))}
             </TableRow>
-          </StyledTableHead>
+          </TableHead>
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
