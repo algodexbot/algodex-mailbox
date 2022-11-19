@@ -14,21 +14,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/* eslint-disable @typescript-eslint/no-var-requires */
+const { defineConfig } = require('cypress')
 
-
-describe('Events', ()=>{
-  it('should get the emitter', ()=>{
-    const ee = require('./events')
-    const onSpy = jest.fn()
-    const payload = {
-      type: 'buy',
-      amount: 100,
-    }
-    ee.on('orders', onSpy)
-    ee.once('orders', onSpy)
-    ee.emit('orders', payload)
-    ee.off('orders', onSpy)
-    expect(onSpy).toBeCalledWith(payload)
-  })
+module.exports = defineConfig({
+  env: {
+    'cypress-react-selector': {
+      root: '#__next',
+    },
+  },
+  viewportWidth: 1300,
+  viewportHeight: 1000,
+  defaultCommandTimeout: 10000,
+  requestTimeout: 100000,
+  responseTimeout: 100000,
+  pageLoadTimeout: 100000,
+  video: true,
+  e2e: {
+    // We've imported your old cypress plugins here.
+    // You may want to clean this up later by importing these.
+    setupNodeEvents(on, config) {
+      return require('./cypress/plugins/index.js')(on, config)
+    },
+    baseUrl: 'http://localhost:3000',
+  },
 })

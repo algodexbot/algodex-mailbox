@@ -1,3 +1,19 @@
+/* 
+ * Algodex Mailbox 
+ * Copyright (C) 2022 Algodex VASP (BVI) Corp.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 /* eslint-disable max-len */
 /*
  * Copyright Algodex VASP (BVI) Corp., 2022
@@ -286,7 +302,8 @@ export function SendAssetPage() {
                 variant="status-message"
                 sx={{ display: 'flex', alignItems: 'center' }}
               >
-                <Link data-testid='shareableLink'
+                <Link
+                  data-testid="shareableLink"
                   href={shareableLink}
                   target="_blanc"
                   sx={{ color: 'info.main' }}
@@ -334,7 +351,7 @@ export function SendAssetPage() {
       <Grid container spacing={2} sx={{ paddingBlock: '2rem' }}>
         <Grid item xs={6} lg={5} className="mr-2">
           <Link
-            href="https://about.algodex.com/docs/algodex-mailbox-user-guide/"
+            href="https://docs.algodex.com/algodex-mailbox/mailbox-user-guide"
             target="blanc"
             color="primary.dark"
           >

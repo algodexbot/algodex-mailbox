@@ -1,3 +1,19 @@
+/* 
+ * Algodex Mailbox 
+ * Copyright (C) 2022 Algodex VASP (BVI) Corp.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 /*
  * Copyright Algodex VASP (BVI) Corp., 2022
  * All Rights Reserved.
@@ -19,6 +35,7 @@ import Helper from '@/lib/helper'
 
 export const WalletAddresses = ({ setWallet, formattedAddresses }) => {
   const [finalAddresses, setFinalAddresses] = useState([])
+  const [radioVal, setRadioVal] = useState(null)
 
   useEffect(() => {
     getAddyNames()
@@ -27,13 +44,18 @@ export const WalletAddresses = ({ setWallet, formattedAddresses }) => {
   const getAddyNames = useCallback(async () => {
     let addresses = []
     for (let address of formattedAddresses) {
-      let names = await Helper.getAlgoNamesOrAddress(address, 'getNames')
+      // let names = await Helper.getAlgoNamesOrAddress(address, 'getNames')
+      // DISABLE ANS DUE TO INDEXER ISSUES
       addresses.push({
-        name: names[0]?.name || null,
+        // name: names[0]?.name || null,
+        name: null,
         wallet: address,
       })
     }
     setFinalAddresses(addresses)
+    if (formattedAddresses.length === 1) {
+      setRadioVal(formattedAddresses[0])
+    }
   }, [formattedAddresses])
 
   return (
@@ -43,8 +65,10 @@ export const WalletAddresses = ({ setWallet, formattedAddresses }) => {
           aria-labelledby="wallet"
           name="wallet"
           onChange={({ target: { value } }) => {
+            setRadioVal(value)
             setWallet(value)
           }}
+          value={radioVal}
         >
           {finalAddresses.map((address) => (
             <Tooltip
